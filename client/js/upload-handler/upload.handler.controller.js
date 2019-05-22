@@ -269,7 +269,14 @@ qq.UploadHandlerController = function(o, namespace) {
                                 }
                             )
                                 .done(function () {
-                                    handler.clearXhr(id, chunkIdx);
+                                    var xhr = handler._getXhr(id, chunkIdx);
+
+                                    if (xhr && xhr.response) {
+                                      var xhrr = JSON.parse(xhr.response);
+                                      if (!xhrr.hasOwnProperty('files')) {
+                                        handler.clearXhr(id, chunkIdx);
+                                      }
+                                    }
                                 });
                         }
                     },
