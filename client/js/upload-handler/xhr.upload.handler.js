@@ -113,6 +113,10 @@ qq.XhrUploadHandler = function(spec) {
                 xhr = handler._getXhr(id, lastChunkIdx);
 
             if (responseParser) {
+                if (xhr == null) {
+                    xhr = handler._getXhrs(id)[0];
+                }
+
                 return new qq.Promise().success(responseParser(xhr), xhr);
             }
 
